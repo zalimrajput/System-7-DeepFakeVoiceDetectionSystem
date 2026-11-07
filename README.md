@@ -173,9 +173,7 @@ or independent-dataset evaluation.
 | Clean | 0.1145 | 95.58% | 71.80% | 93.64% | 81.28% | 98.79% | **5.27%** |
 | Noisy | 0.1917 | 91.91% | 56.82% | 87.99% | 69.05% | 96.60% | **9.62%** |
 
-Precision is noticeably lower than recall and the dev set is class-imbalanced,
-so accuracy alone is misleading — EER and AUC are the better summaries, and
-EER roughly doubles once noise augmentation is applied.
+
 
 ### Per-epoch history
 
