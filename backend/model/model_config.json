@@ -1,0 +1,86 @@
+{
+    "architecture": "AASIST",
+    "model_config": {
+        "architecture": "AASIST",
+        "nb_samp": 64600,
+        "first_conv": 128,
+        "filts": [
+            70,
+            [
+                1,
+                32
+            ],
+            [
+                32,
+                32
+            ],
+            [
+                32,
+                64
+            ],
+            [
+                64,
+                64
+            ]
+        ],
+        "gat_dims": [
+            64,
+            32
+        ],
+        "pool_ratios": [
+            0.5,
+            0.7,
+            0.5,
+            0.5
+        ],
+        "temperatures": [
+            2.0,
+            2.0,
+            100.0,
+            100.0
+        ]
+    },
+    "audio": {
+        "sample_rate": 16000,
+        "audio_length": 64600,
+        "channels": 1,
+        "format": "WAV",
+        "preprocessing": {
+            "convert_to_mono": true,
+            "resample": true,
+            "target_sample_rate": 16000,
+            "repeat_short_audio": true,
+            "center_crop_long_audio": true
+        }
+    },
+    "training": {
+        "batch_size": 8,
+        "epochs": 5,
+        "learning_rate": 0.0001,
+        "optimizer": "Adam",
+        "weight_decay": 0.0001,
+        "scheduler": "CosineAnnealingLR",
+        "noise_probability": 0.6,
+        "snr_levels": [
+            20,
+            15,
+            10,
+            5,
+            0
+        ]
+    },
+    "classes": {
+        "FAKE": 0,
+        "REAL": 1
+    },
+    "output": {
+        "number_of_classes": 2,
+        "classification_logits_index": 1,
+        "probability_function": "softmax"
+    },
+    "checkpoint": "final_aasist_weights.pth",
+    "dataset": {
+        "name": "ASVspoof 2019 LA",
+        "source": "Bisher/ASVspoof_2019_LA"
+    }
+}
