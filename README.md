@@ -160,7 +160,7 @@ WAV, MP3, OGG/OPUS and FLAC decode with `libsndfile`. **AAC/M4A** needs
 | Weight decay | `1e-4` |
 | Batch size | 8 |
 | Epochs | 5 |
-| Augmentation | Noise applied with probability 0.6 at SNR levels 20, 15, 10, 5, 0 dB |
+| Noise augmentation | MUSAN corpus, applied with probability 0.6 at SNR levels 20, 15, 10, 5, 0 dB |
 
 ### Development-set results
 
