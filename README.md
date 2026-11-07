@@ -10,8 +10,7 @@ The project has two parts:
 - **Frontend** — Next.js 15 + Tailwind CSS 4 dashboard with drag & drop upload,
   waveform preview, progress states and a verdict card.
 
-> The verdict is evidence, not proof. Heavy compression, music beds, noise,
-> multiple speakers or short clips can shift the score.
+
 
 ---
 
