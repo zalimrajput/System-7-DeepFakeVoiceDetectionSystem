@@ -147,6 +147,7 @@ WAV, MP3, OGG/OPUS and FLAC decode with `libsndfile`. **AAC/M4A** needs
 | --- | --- |
 | **Model** | AASIST — graph-attention anti-spoofing network (RawNet2-style sinc front-end + heterogeneous stacking graph attention layers) |
 | **Dataset** | [ASVspoof 2019 LA](https://www.asvspoof.org/) (`Bisher/ASVspoof_2019_LA`) — bonafide vs. spoofed (TTS/VC) speech |
+| **Noise dataset** | [MUSAN](https://www.openslr.org/17/) — music, speech and noise corpus mixed in for augmentation |
 | **Input** | 16 kHz mono, 64,600 samples (~4 s) |
 | **Classes** | `FAKE = 0`, `REAL = 1` |
 | **Checkpoint** | `backend/model/final_aasist_weights.pth` |
