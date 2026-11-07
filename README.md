@@ -141,6 +141,54 @@ WAV, MP3, OGG/OPUS and FLAC decode with `libsndfile`. **AAC/M4A** needs
 
 ---
 
+## Model and training
+
+| | |
+| --- | --- |
+| **Model** | AASIST — graph-attention anti-spoofing network (RawNet2-style sinc front-end + heterogeneous stacking graph attention layers) |
+| **Dataset** | [ASVspoof 2019 LA](https://www.asvspoof.org/) (`Bisher/ASVspoof_2019_LA`) — bonafide vs. spoofed (TTS/VC) speech |
+| **Input** | 16 kHz mono, 64,600 samples (~4 s) |
+| **Classes** | `FAKE = 0`, `REAL = 1` |
+| **Checkpoint** | `backend/model/final_aasist_weights.pth` |
+
+### Training setup
+
+| Setting | Value |
+| --- | --- |
+| Optimizer | Adam |
+| Learning rate | `1e-4`, cosine annealing |
+| Weight decay | `1e-4` |
+| Batch size | 8 |
+| Epochs | 5 |
+| Augmentation | Noise applied with probability 0.6 at SNR levels 20, 15, 10, 5, 0 dB |
+
+### Development-set results
+
+Evaluated on the ASVspoof 2019 LA **development set**, both clean and with the
+noise augmentation applied. These are development numbers, not a held-out test
+or independent-dataset evaluation.
+
+| Condition | Loss | Accuracy | Precision | Recall | F1 | AUC | EER |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Clean | 0.1145 | 95.58% | 71.80% | 93.64% | 81.28% | 98.79% | **5.27%** |
+| Noisy | 0.1917 | 91.91% | 56.82% | 87.99% | 69.05% | 96.60% | **9.62%** |
+
+Precision is noticeably lower than recall and the dev set is class-imbalanced,
+so accuracy alone is misleading — EER and AUC are the better summaries, and
+EER roughly doubles once noise augmentation is applied.
+
+### Per-epoch history
+
+| Epoch | Train loss | Clean loss | Clean acc | Clean F1 | Clean AUC | Clean EER | Noisy loss | Noisy acc | Noisy F1 | Noisy AUC | Noisy EER |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| 1 | 0.6614 | 0.3878 | 82.60% | 51.34% | 92.53% | 14.66% | 0.4315 | 80.31% | 42.90% | 84.85% | 23.23% |
+| 2 | 0.4307 | 0.4492 | 77.71% | 47.62% | 96.76% | 9.34% | 0.6492 | 63.36% | 35.13% | 92.06% | 15.90% |
+| 3 | 0.3388 | 0.2737 | 87.35% | 61.45% | 98.31% | 6.51% | 0.3704 | 81.84% | 51.12% | 94.90% | 12.91% |
+| 4 | 0.2791 | 0.1625 | 93.07% | 73.84% | 98.70% | 5.81% | 0.2202 | 90.44% | 65.63% | 96.46% | 10.17% |
+| 5 | 0.2492 | 0.1145 | 95.58% | 81.28% | 98.79% | 5.27% | 0.1919 | 91.87% | 68.89% | 96.66% | 9.68% |
+
+---
+
 ## API
 
 | Method | Path | Description |
